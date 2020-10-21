@@ -1,2 +1,9 @@
+app\examproject\auth\User.class
+app\examproject\auth\Group.class
+app\examproject\auth\KeyService.class
+app\examproject\resources\DataSourceProducer.class
+app\examproject\auth\AuthRunOnStartup.class
+app\examproject\resources\SecurityConfiguration.class
 app\examproject\JAXRSConfiguration.class
-app\examproject\resources\JavaEE8Resource.class
+app\examproject\auth\User$State.class
+app\examproject\auth\AuthenticationService.class
