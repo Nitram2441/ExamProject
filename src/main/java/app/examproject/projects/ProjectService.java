@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -27,11 +28,16 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.StreamingOutput;
+import net.coobird.thumbnailator.Thumbnails;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.glassfish.jersey.media.multipart.ContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
@@ -124,6 +130,35 @@ public class ProjectService {
         return Response.ok(project).build();
 
     }
+    
+    @GET
+    @Path("image/{name}")
+    @Produces("image/jpeg")
+    public Response getImage(@PathParam("name") String name,
+            @QueryParam("width") int width){
+        if(em.find(MediaObject.class, name) != null) {
+            StreamingOutput result = (OutputStream os) -> {
+                java.nio.file.Path image = Paths.get(getPhotoPath(),name);
+                if(width == 0) {
+                    Files.copy(image, os);
+                    os.flush();
+                } else {
+                    Thumbnails.of(image.toFile())
+                              .size(width, width)
+                              .outputFormat("jpeg")
+                              .toOutputStream(os);
+                }
+            };
+            CacheControl cc = new CacheControl();
+            cc.setMaxAge(86400);
+            cc.setPrivate(true);
+
+            return Response.ok(result).cacheControl(cc).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }  
+
     
     private String getPhotoPath() {
             return photoPath;
