@@ -63,9 +63,14 @@ public class Project extends AbstractDomain{
     public Project(String name, String description){
         this.name = name;
         this.description = description;
-        
-        //this.seller = seller;
-        //this.price = price;
+
+    }
+    
+    public Project(User manager, String name, String description){
+        this.manager = manager;
+        this.name = name;
+        this.description = description;
+
     }
     
     public void addPhoto(MediaObject photo){

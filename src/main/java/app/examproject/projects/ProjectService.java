@@ -97,7 +97,7 @@ public class ProjectService {
             
             List<FormDataBodyPart> images = multiPart.getFields("image");
             User user = em.find(User.class, sc.getUserPrincipal().getName());
-            project = new Project(name, description);
+            project = new Project(user, name, description);
             if (images != null){
                 for(FormDataBodyPart part : images){
                     InputStream is = part.getEntityAs(InputStream.class);
