@@ -104,6 +104,7 @@ public class ProjectService {
                     ContentDisposition meta = part.getContentDisposition();
                     String pid = UUID.randomUUID().toString();
                     Files.createDirectories(Paths.get(getPhotoPath()));
+                    
                     Files.copy(is, Paths.get(getPhotoPath(), pid));
                     
                     photo = new MediaObject(pid, user, meta.getFileName(), meta.getSize(), meta.getType());

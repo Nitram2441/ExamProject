@@ -3,8 +3,10 @@ app\examproject\auth\Group.class
 app\examproject\projects\MediaObjectAdapter.class
 app\examproject\projects\ProjectOnStartup.class
 app\examproject\projects\Project.class
+app\examproject\workhour\WorkHourService.class
 app\examproject\resources\SecurityConfiguration.class
 app\examproject\auth\User$State.class
+app\examproject\workhour\WorkHourEntity.class
 app\examproject\auth\AuthenticationService.class
 app\examproject\auth\User.class
 app\examproject\auth\KeyService.class

@@ -1,5 +1,6 @@
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\projects\ProjectOnStartup.java
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\auth\Group.java
+C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\workhour\WorkHourEntity.java
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\auth\User.java
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\auth\KeyService.java
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\resources\DataSourceProducer.java
@@ -10,5 +11,6 @@ C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproj
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\projects\MediaObject.java
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\resources\SecurityConfiguration.java
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\projects\Project.java
+C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\workhour\WorkHourService.java
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\projects\MediaObjectAdapter.java
 C:\Users\marti\Documents\NetBeansProjects\ExamProject\src\main\java\app\examproject\projects\ProjectService.java
