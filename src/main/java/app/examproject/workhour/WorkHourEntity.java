@@ -26,7 +26,7 @@ import lombok.EqualsAndHashCode;
  * @author marti
  */
 @Entity
-//@Data @EqualsAndHashCode(exclude = {"seller"}, callSuper = false)
+@Data @EqualsAndHashCode(exclude = {"seller"}, callSuper = false)
 @AllArgsConstructor
 /*
 @NamedQuery(name = "Project.findAllProjects",

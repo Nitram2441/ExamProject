@@ -45,12 +45,15 @@ public class WorkHourService {
     @RolesAllowed({Group.ADMIN, Group.USER})
     public Response create(
             @FormParam("uid") String employeeId,
-            @FormParam("pid") String projectId,
+            @FormParam("pid") int projectId,
             @FormParam("comment") String comment){
         WorkHourEntity workHour;
         LocalDateTime start = LocalDateTime.now();
+        //System.out.println(em.find(Project.class, projectId));
+        //System.out.println(em.find(User.class, employeeId));
         //Integer userIdAsInt = Integer.parseInt(employeeId);
         User user = em.find(User.class, employeeId);
+        
         //Integer projectIdAsInt = Integer.parseInt(projectId);
         Project project = em.find(Project.class, projectId);
         
@@ -59,4 +62,5 @@ public class WorkHourService {
         return Response.ok(workHour).build();
         
     }
+
 }

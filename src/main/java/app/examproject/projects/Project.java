@@ -41,8 +41,9 @@ public class Project extends AbstractDomain{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
+    //int projectNumber;
     int projectNumber;
-    
+            
     String name;
     
     String description;
