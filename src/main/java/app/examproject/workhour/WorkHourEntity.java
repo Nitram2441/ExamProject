@@ -28,10 +28,10 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data @EqualsAndHashCode(exclude = {"seller"}, callSuper = false)
 @AllArgsConstructor
-/*
-@NamedQuery(name = "Project.findAllProjects",
-        query = "select p from Project p")
-  */
+
+@NamedQuery(name = "WorkHourEntity.findAllWorkHours",
+        query = "select w from WorkHourEntity w")
+  
 public class WorkHourEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +43,7 @@ public class WorkHourEntity implements Serializable {
     User employee;
     
     @ManyToOne
-    @JoinColumn(name="project", referencedColumnName = "projectid")
+    @JoinColumn(name="project", referencedColumnName = "id")
     Project project;
     
     LocalDateTime workStart;
