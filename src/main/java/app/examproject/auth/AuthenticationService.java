@@ -55,7 +55,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 
 /**
- *
+ * egrehgtdhtrhrtgfad
  * @author marti
  */
 @Path("auth")
@@ -112,7 +112,9 @@ public class AuthenticationService {
                     .ok(token)
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                     .build();
-        } else {
+        } 
+        
+        else {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
