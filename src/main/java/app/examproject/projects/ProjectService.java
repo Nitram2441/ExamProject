@@ -89,6 +89,7 @@ public class ProjectService {
     public Response addProject(
             @FormDataParam("name") String name,
             @FormDataParam("description") String description,
+            @FormDataParam("customer") String customer,
             FormDataMultiPart multiPart){
         
         MediaObject photo = null;
@@ -97,7 +98,7 @@ public class ProjectService {
             
             List<FormDataBodyPart> images = multiPart.getFields("image");
             User user = em.find(User.class, sc.getUserPrincipal().getName());
-            project = new Project(user, name, description);
+            project = new Project(user, name, description, customer);
             if (images != null){
                 for(FormDataBodyPart part : images){
                     InputStream is = part.getEntityAs(InputStream.class);

@@ -48,6 +48,8 @@ public class Project extends AbstractDomain{
     
     String description;
     
+    String customer;
+    
     
     @JsonbTypeAdapter(MediaObjectAdapter.class)
     @OneToMany
@@ -67,10 +69,11 @@ public class Project extends AbstractDomain{
 
     }
     
-    public Project(User manager, String name, String description){
+    public Project(User manager, String name, String description, String customer){
         this.manager = manager;
         this.name = name;
         this.description = description;
+        this.customer = customer;
 
     }
     
