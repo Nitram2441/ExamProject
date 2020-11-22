@@ -9,6 +9,7 @@ import app.examproject.auth.Group;
 import app.examproject.auth.User;
 import app.examproject.projects.Project;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
@@ -68,7 +69,13 @@ public class WorkHourService {
         Project project = em.find(Project.class, projectId);
         
         workHour = new WorkHourEntity(user, project, start, null, comment);
+        
         em.persist(workHour);
+
+        
+        Response r = Response.ok(workHour).build();
+        
+        
         
         return Response.ok(workHour).build();
     }
@@ -98,13 +105,41 @@ public class WorkHourService {
         
         return Response.ok(workHour).build();
     }
+    
+    @PUT
+    @Path("endwork")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Group.ADMIN, Group.USER})
+    public Response endWork(@FormParam("uid") String employeeId,
+            @FormParam("comment") String comment){
+            User user = em.find(User.class, employeeId);
+            int workHourId = getLastWorkHour(user.getUserid());
+            WorkHourEntity workHour = em.find(WorkHourEntity.class, workHourId);
+            LocalDateTime end = LocalDateTime.now();
+            if(comment != null){
+            workHour.setComment(comment);
+            em.merge(workHour);
+        }
+            return Response.ok(workHour).build();
+    }
 
     
     @GET
     @Path("getworkhours")
     //@Produces(MediaType.APPLICATION_JSON))
-    public List getAllProjects(){
-        return em.createNamedQuery("WorkHourEntity.findAllWorkHours", Project.class).getResultList();
+    public List getAllWorkHours(){
+        return em.createNamedQuery("WorkHourEntity.findAllWorkHours", WorkHourEntity.class).getResultList();
+    }
+    //it will do... for now
+    public int getLastWorkHour(String username){
+        List<WorkHourEntity> all = em.createNamedQuery("WorkHourEntity.findAllWorkHours", WorkHourEntity.class).getResultList();
+        for (WorkHourEntity var : all) 
+{           
+            if (var.employee.getUserid().equals(username) && var.workEnd == null){
+                return var.entityId;
+            }
+}
+        return -1;
     }
     
 }

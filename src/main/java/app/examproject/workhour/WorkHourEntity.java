@@ -31,6 +31,7 @@ import lombok.EqualsAndHashCode;
 
 @NamedQuery(name = "WorkHourEntity.findAllWorkHours",
         query = "select w from WorkHourEntity w")
+
   
 public class WorkHourEntity implements Serializable {
     @Id

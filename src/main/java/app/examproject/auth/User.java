@@ -84,6 +84,10 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name="userid", referencedColumnName = "userid"),
             inverseJoinColumns = @JoinColumn(name="name",referencedColumnName = "name"))
     List<Group> groups;
+    
+    //might be redundant
+    Boolean atWork;
+    
 
     String firstName;
     String middleName;
@@ -102,6 +106,8 @@ public class User implements Serializable {
     @PrePersist
     protected void onCreate() {
         created = new Date();
+        atWork = false;
+
     }
     
     public List<Group> getGroups() {

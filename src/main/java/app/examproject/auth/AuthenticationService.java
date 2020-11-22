@@ -179,12 +179,31 @@ public class AuthenticationService {
     @RolesAllowed(value = {Group.USER})
     @Produces(MediaType.APPLICATION_JSON)
     public Response addDetails(
-            @Email @FormParam("email") String email){
+            @Email @FormParam("email") String email,
+            @FormParam("atWork") String atWork,
+            @FormParam("workSessionId") int workSessionId){
         User user = em.find(User.class, principal.getName());
-        user.setEmail(email);
+        if(email != null){
+            user.setEmail(email);
+        }
+        if(atWork != null){
+            if("false".equals(atWork)){
+                user.setAtWork(Boolean.FALSE);
+            }
+            else{
+                user.setAtWork(Boolean.TRUE);
+            }
+        
+            
+        }
+
+        
         em.merge(user);
         return Response.ok(user).build();
     }
+
+    
+    
     //Just for testing purpouses
     @POST
     @Path("createadmin")
@@ -206,6 +225,7 @@ public class AuthenticationService {
             return Response.ok(em.merge(user)).build();
         }
     }
+
     
     /**
      *
