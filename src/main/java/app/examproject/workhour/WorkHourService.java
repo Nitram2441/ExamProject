@@ -156,6 +156,8 @@ public class WorkHourService {
         }
         return forUser;
     }
+    
+    
     //it will do... for now
     public int getLastWorkHour(String username){
         List<WorkHourEntity> all = em.createNamedQuery("WorkHourEntity.findAllWorkHours", WorkHourEntity.class).getResultList();
