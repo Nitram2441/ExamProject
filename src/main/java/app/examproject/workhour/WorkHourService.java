@@ -14,6 +14,7 @@ import java.util.List;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
@@ -27,6 +28,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 /**
  *
@@ -42,6 +44,9 @@ public class WorkHourService {
     
     @PersistenceContext
     EntityManager em;
+    
+        @Inject
+    JsonWebToken principal;
     
     @POST
     @Path("create")
@@ -118,17 +123,38 @@ public class WorkHourService {
             LocalDateTime end = LocalDateTime.now();
             if(comment != null){
             workHour.setComment(comment);
-            em.merge(workHour);
+            
         }
-            return Response.ok(workHour).build();
+            workHour.setWorkEnd(end);
+            return Response.ok(em.merge(workHour)).build();
     }
 
     
     @GET
     @Path("getworkhours")
     //@Produces(MediaType.APPLICATION_JSON))
+    @RolesAllowed({Group.ADMIN})
     public List getAllWorkHours(){
         return em.createNamedQuery("WorkHourEntity.findAllWorkHours", WorkHourEntity.class).getResultList();
+        
+    }
+    
+    @GET
+    @Path("getworkhoursforuser")
+    //@Produces(MediaType.APPLICATION_JSON))
+    @RolesAllowed({Group.USER})
+    public List getAllWorkHoursForUser(){
+        List<WorkHourEntity> all = em.createNamedQuery("WorkHourEntity.findAllWorkHours", WorkHourEntity.class).getResultList();
+        List<WorkHourEntity> forUser = new ArrayList<>();
+        User user = em.find(User.class, principal.getName());
+        
+        for (WorkHourEntity var : all) {
+            if(var.getEmployee() == user){
+                System.out.println(var.comment);
+                forUser.add(var);
+            }
+        }
+        return forUser;
     }
     //it will do... for now
     public int getLastWorkHour(String username){
